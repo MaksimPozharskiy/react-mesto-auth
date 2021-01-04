@@ -1,3 +1,5 @@
+
+
 function Register() {
   return (
     <section className="start-screen">
