@@ -7,6 +7,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import Login from './Login';
+import Register from './Register';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -120,8 +121,9 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header />
-        {/* <Login /> @TODO будет открыт после разработки функциональности компонента*/}
-        {currentUser && // Рендерим элемент только после того как пришел ответ от React.useEffect
+        <Register />
+        {/* <Login /> */}
+        {/* {currentUser && // Рендерим элемент только после того как пришел ответ от React.useEffect
           <Main 
             onEditProfile={handleEditProfileClick} 
             onAddPlace={handleAddPlaceClick} 
@@ -131,8 +133,8 @@ function App() {
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
             /> 
-        }
-        <Footer />
+        } */}
+        {/* <Footer /> */}
       </div>
       {currentUser &&
         <EditProfilePopup 
