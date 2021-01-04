@@ -65,3 +65,11 @@
 @import url('./blocks/popup/__input/_type/popup__input_type_error.css');
 @import url('./blocks/popup/__button-save/_inactive/popup__button-save_inactive.css');
 @import url('./blocks/popup/__input/_name/popup__input_name_link-avatar.css');
+
+/* Start-screen */
+
+@import url('./blocks/start-screen/start-screen.css');
+@import url('./blocks/start-screen/__form/start-screen__form.css');
+@import url('./blocks/start-screen/__input/start-screen__input.css');
+@import url('./blocks/start-screen/__submit/start-screen__submit.css');
+@import url('./blocks/start-screen/__title/start-screen__title.css');
