@@ -1,4 +1,4 @@
-
+import { Link } from 'react-router-dom'; 
 
 function Register() {
   return (
@@ -9,7 +9,7 @@ function Register() {
         <input className="start-screen__input" placeholder="Пароль"/>
         <button className="start-screen__submit">Зарегистрироваться</button>
       </form>
-      <h2 className="start-screen__login">Уже зарегистрированы? Войти</h2>
+      <Link className="start-screen__login" to="/sign-in">Уже зарегистрированы? Войти</Link>
     </section>
   );
 }
