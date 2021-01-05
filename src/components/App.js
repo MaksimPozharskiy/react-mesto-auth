@@ -11,6 +11,7 @@ import ProtectedRoute from './ProtectedRoute';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { Route, Redirect, Switch } from 'react-router-dom';
+import InfoTooltip from './InfoTooltip';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -156,17 +157,22 @@ function App() {
         onClose={closeAllPopups}
         onAddPlace={handleAddPlaceSubmit}
       />
-        {currentUser &&
-          <EditAvatarPopup 
-            isOpen={isEditAvatarPopupOpen} 
-            onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateAvatar}   
-          /> 
-        }
+      {currentUser &&
+        <EditAvatarPopup 
+          isOpen={isEditAvatarPopupOpen} 
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}   
+        /> 
+      }
       <ImagePopup 
         card={selectedCard} 
         onClose={closeAllPopups}
       />
+      {currentUser &&
+          <InfoTooltip
+            onClose={closeAllPopups} 
+          /> 
+        }
     </CurrentUserContext.Provider>
   );
 }
