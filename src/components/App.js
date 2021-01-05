@@ -123,7 +123,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header />
+        <Header loggedIn={loggedIn} />
         <Switch>
           {currentUser && <ProtectedRoute exact path="/" loggedIn={loggedIn} component={Main} // Рендерим элемент только после того как пришел ответ от React.useEffect
             onEditProfile={handleEditProfileClick} 
