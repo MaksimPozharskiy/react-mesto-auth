@@ -13,7 +13,7 @@ function Header({loggedIn}) {
         {loggedIn ? (
           <>
             <p className="header__email">email</p>
-            <Link className="header__signout">Выйти</Link>
+            <Link className="header__signout" to="">Выйти</Link>
           </>) : (<Link to={linkRoute} className="header__link">{text}</Link>)
         }
       </div>

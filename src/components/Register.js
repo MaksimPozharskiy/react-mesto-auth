@@ -1,12 +1,32 @@
+import React from 'react';
 import { Link } from 'react-router-dom'; 
+import * as Auth from '../utils/auth';
 
 function Register() {
+  const [valueEmail, setValueEmail] = React.useState('');
+  const [valuePassword, setValuePassword] = React.useState('');
+
+  function handleChangeEmail(e) {
+    setValueEmail(e.target.value);
+  }
+
+  function handleChangePassword(e) {
+    setValuePassword(e.target.value);
+  }
+
+  function handleSubmit(e){
+    e.preventDefault()
+    const email = valueEmail;
+    const password = valuePassword;
+    Auth.register(email, password);
+  } 
+
   return (
     <section className="start-screen">
       <h1 className="start-screen__title">Регистрация</h1>
-      <form className="start-screen__form">
-        <input className="start-screen__input" placeholder="Email"/>
-        <input className="start-screen__input" placeholder="Пароль"/>
+      <form onSubmit={handleSubmit} className="start-screen__form">
+        <input value={valueEmail} type="email" className="start-screen__input" placeholder="Email" onChange={handleChangeEmail}/>
+        <input value={valuePassword} type="password" className="start-screen__input" placeholder="Пароль" onChange={handleChangePassword}/>
         <button className="start-screen__submit">Зарегистрироваться</button>
       </form>
       <Link className="start-screen__login" to="/sign-in">Уже зарегистрированы? Войти</Link>
