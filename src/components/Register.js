@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link, useHistory } from 'react-router-dom'; 
 import * as Auth from '../utils/auth';
 
-function Register() {
+function Register({openInfoTooltip, onClose}) {
   const [valueEmail, setValueEmail] = React.useState('');
   const [valuePassword, setValuePassword] = React.useState('');
+  const history = useHistory(); 
 
   function handleChangeEmail(e) {
     setValueEmail(e.target.value);
@@ -19,6 +20,10 @@ function Register() {
     const email = valueEmail;
     const password = valuePassword;
     Auth.register(email, password);
+    openInfoTooltip();
+    // Перенаправляем на главную страницу спустя 3сек и закрываем попап
+    setTimeout(history.push, 3000, "/");
+    setTimeout(onClose, 2500);
   } 
 
   return (

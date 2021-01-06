@@ -17,9 +17,10 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState();
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(true);
 
   React.useEffect(() => {
     api.getUserInfo().then(data => setCurrentUser(data))
@@ -35,9 +36,11 @@ function App() {
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
   }
-
   function handleCardClick(card) {
     setSelectedCard(card);
+  }
+  function handleInfoTooltipPopupOpen() {
+    setIsInfoTooltipPopupOpen(true);
   }
 
   function closeAllPopups() {
@@ -45,6 +48,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setSelectedCard(false);
+    setIsInfoTooltipPopupOpen(false);
   }
 
   function handleUpdateUser({name, about}) {
@@ -138,7 +142,10 @@ function App() {
             <Login />
           </Route>
           <Route path="/sign-up">
-            <Register />
+            <Register 
+              openInfoTooltip={handleInfoTooltipPopupOpen} 
+              onClose={closeAllPopups}
+            />
           </Route>
           <Route path="/">
             {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
@@ -170,6 +177,7 @@ function App() {
       />
       {currentUser &&
           <InfoTooltip
+            isOpen={isInfoTooltipPopupOpen} 
             onClose={closeAllPopups} 
           /> 
         }
