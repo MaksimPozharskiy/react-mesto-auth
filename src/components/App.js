@@ -21,6 +21,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState();
   const [loggedIn, setLoggedIn] = React.useState(true);
+  const [message, setMessage] = React.useState({ iconPath: '', text: '' });
 
   React.useEffect(() => {
     api.getUserInfo().then(data => setCurrentUser(data))
@@ -41,6 +42,9 @@ function App() {
   }
   function handleInfoTooltipPopupOpen() {
     setIsInfoTooltipPopupOpen(true);
+  }
+  function hadleInfoTooltipContent({iconPath, text}) {
+    setMessage({ iconPath: iconPath, text: text })
   }
 
   function closeAllPopups() {
@@ -145,6 +149,7 @@ function App() {
             <Register 
               openInfoTooltip={handleInfoTooltipPopupOpen} 
               onClose={closeAllPopups}
+              infoTooltipContent={hadleInfoTooltipContent}
             />
           </Route>
           <Route path="/">
@@ -179,6 +184,7 @@ function App() {
           <InfoTooltip
             isOpen={isInfoTooltipPopupOpen} 
             onClose={closeAllPopups} 
+            message={message}
           /> 
         }
     </CurrentUserContext.Provider>

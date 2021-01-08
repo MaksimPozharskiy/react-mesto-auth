@@ -1,12 +1,10 @@
-import registrationOk from '../images/registration-ok.svg';
-
-function InfoTooltip ({onClose, isOpen}) {
+function InfoTooltip ({onClose, isOpen, message}) {
 
   return (
     <div className={`popup popup_type_infotool ${isOpen ? 'popup_opened' : ''}`}>
       <div className="popup__container">
-        <img src={registrationOk} alt="" className="popup__result-icon" />
-        <p className="popup__title-info">Тут будет в зависимости от результата текст</p>
+        <img src={message.iconPath} alt="" className="popup__result-icon" />
+        <p className="popup__title-info">{message.text}</p>
         <button type="button" className="popup__button-close" onClick={onClose} />
       </div>
     </div>

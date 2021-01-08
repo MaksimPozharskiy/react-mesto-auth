@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom'; 
 import * as Auth from '../utils/auth';
+import registrationOk from '../images/registration-ok.svg';
+import registrationNoOK from '../images/login-fail.svg';
 
-function Register({openInfoTooltip, onClose}) {
+function Register({openInfoTooltip, onClose, infoTooltipContent}) {
   const [valueEmail, setValueEmail] = React.useState('');
   const [valuePassword, setValuePassword] = React.useState('');
   const history = useHistory(); 
@@ -19,11 +21,17 @@ function Register({openInfoTooltip, onClose}) {
     e.preventDefault()
     const email = valueEmail;
     const password = valuePassword;
-    Auth.register(email, password);
-    openInfoTooltip();
-    // Перенаправляем на главную страницу спустя 3сек и закрываем попап
-    setTimeout(history.push, 3000, "/");
-    setTimeout(onClose, 2500);
+    Auth.register(email, password).then(() => {
+        infoTooltipContent({iconPath: registrationOk, text: 'Вы успешно зарегистрировались!'})
+        openInfoTooltip();
+        // Перенаправляем на страницу логина спустя 3сек и закрываем попап
+        setTimeout(history.push, 3000, "/sign-in");
+        setTimeout(onClose, 2500);
+    }).catch(()=> {
+      infoTooltipContent({iconPath: registrationNoOK, text: 'Что-то пошло не так! Попробуйте ещё раз.'})
+      openInfoTooltip();
+      setTimeout(onClose, 2500);
+    })
   } 
 
   return (
