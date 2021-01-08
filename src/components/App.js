@@ -10,8 +10,9 @@ import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Redirect, Switch, useHistory } from 'react-router-dom';
 import InfoTooltip from './InfoTooltip';
+import * as Auth from '../utils/auth';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -23,11 +24,26 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [message, setMessage] = React.useState({ iconPath: '', text: '' });
   const [email, setEmail] = React.useState('');
+  const history = useHistory();
 
   React.useEffect(() => {
     api.getUserInfo().then(data => setCurrentUser(data))
     .catch(error => api.errorHandler(error));
   }, []);
+
+  React.useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      Auth.getContent(jwt)
+        .then((res) => {
+          setLoggedIn(true);
+          setEmail(res.data.email);
+          history.push('/');
+        })
+        .catch(err => console.log(err));
+    }
+  }, [history]);
+
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
