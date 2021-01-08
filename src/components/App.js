@@ -145,10 +145,18 @@ function App() {
     }
   }, []);
 
+  // Выход из учетки
+  function handleSignOut() {
+    setLoggedIn(false);
+    localStorage.removeItem('jwt');
+    setEmail('');
+    history.push('/sign-in');
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header loggedIn={loggedIn} email={email} />
+        <Header loggedIn={loggedIn} email={email} handleSignOut={handleSignOut} />
         <Switch>
           {currentUser && <ProtectedRoute exact path="/" loggedIn={loggedIn} component={Main} // Рендерим элемент только после того как пришел ответ от React.useEffect
             onEditProfile={handleEditProfileClick} 
