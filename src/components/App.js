@@ -26,6 +26,7 @@ function App() {
   const [email, setEmail] = React.useState('');
   const history = useHistory();
 
+
   React.useEffect(() => {
     api.getUserInfo().then(data => setCurrentUser(data))
     .catch(error => api.errorHandler(error));

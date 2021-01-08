@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import * as Auth from '../utils/auth';
 import registrationOk from '../images/registration-ok.svg';
 import registrationNoOK from '../images/login-fail.svg';
+const escapeHtml = require('escape-html')
 
 function Login({setEmail, openInfoTooltip, onClose, infoTooltipContent, setLoggedIn}) {
   const [valueEmail, setValueEmail] = React.useState('');
@@ -22,7 +23,7 @@ function Login({setEmail, openInfoTooltip, onClose, infoTooltipContent, setLogge
     const email = valueEmail;
     const password = valuePassword;
 
-    Auth.authorize(email, password )
+    Auth.authorize(escapeHtml(email), password )
     .then((data) => {
       if (!data) {
         throw new Error('Произошла ошибка');

@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import * as Auth from '../utils/auth';
 import registrationOk from '../images/registration-ok.svg';
 import registrationNoOK from '../images/login-fail.svg';
+const escapeHtml = require('escape-html')
 
 function Register({openInfoTooltip, onClose, infoTooltipContent}) {
   const [valueEmail, setValueEmail] = React.useState('');
@@ -21,7 +22,7 @@ function Register({openInfoTooltip, onClose, infoTooltipContent}) {
     e.preventDefault()
     const email = valueEmail;
     const password = valuePassword;
-    Auth.register(email, password).then(() => {
+    Auth.register(escapeHtml(email), password).then(() => {
         infoTooltipContent({iconPath: registrationOk, text: 'Вы успешно зарегистрировались!'})
         openInfoTooltip();
         // Перенаправляем на страницу логина спустя 3сек и закрываем попап
