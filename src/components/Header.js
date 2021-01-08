@@ -1,7 +1,7 @@
 import logo from '../images/logo.svg';
 import { Link, useLocation } from 'react-router-dom';
 
-function Header({loggedIn}) {
+function Header({loggedIn, email}) {
   const { pathname } = useLocation();
   const text = `${pathname === '/sign-in' ? 'Регистрация' : 'Войти'}`;
   const linkRoute = `${pathname === '/sign-in' ? '/sign-up' : '/sign-in'}`;
@@ -12,7 +12,7 @@ function Header({loggedIn}) {
       <div className="header__wrap">
         {loggedIn ? (
           <>
-            <p className="header__email">email</p>
+            <p className="header__email">{email}</p>
             <Link className="header__signout" to="">Выйти</Link>
           </>) : (<Link to={linkRoute} className="header__link">{text}</Link>)
         }

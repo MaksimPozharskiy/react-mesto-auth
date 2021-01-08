@@ -20,8 +20,9 @@ function App() {
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState();
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [message, setMessage] = React.useState({ iconPath: '', text: '' });
+  const [email, setEmail] = React.useState('');
 
   React.useEffect(() => {
     api.getUserInfo().then(data => setCurrentUser(data))
@@ -131,7 +132,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header loggedIn={loggedIn} />
+        <Header loggedIn={loggedIn} email={email} />
         <Switch>
           {currentUser && <ProtectedRoute exact path="/" loggedIn={loggedIn} component={Main} // Рендерим элемент только после того как пришел ответ от React.useEffect
             onEditProfile={handleEditProfileClick} 
@@ -143,7 +144,13 @@ function App() {
             onCardDelete={handleCardDelete}
           />}
           <Route path="/sign-in">
-            <Login />
+            <Login 
+              openInfoTooltip={handleInfoTooltipPopupOpen} 
+              onClose={closeAllPopups}
+              infoTooltipContent={hadleInfoTooltipContent}
+              setEmail={setEmail}
+              setLoggedIn={setLoggedIn}
+            />
           </Route>
           <Route path="/sign-up">
             <Register 
