@@ -25,7 +25,8 @@ function EditAvatarPopup({isOpen, onClose, onUpdateAvatar}) {
         children=""
         isOpen={isOpen}
         onClose={onClose}
-        handleSubmit={handleSubmit}>
+        handleSubmit={handleSubmit}
+        buttonSubmitText={'Сохранить'}>
           <input 
             type="url" 
             placeholder="Ссылка на картинку" 
@@ -38,11 +39,6 @@ function EditAvatarPopup({isOpen, onClose, onUpdateAvatar}) {
           <span 
             className='popup__input-error' 
             id='avatar-input-error'>Заполните это поле.</span>
-          <input 
-            type="submit" 
-            className="popup__button-save" 
-            value="Сохранить" 
-            name="submit" />
     </PopupWithForm>
   );
 }

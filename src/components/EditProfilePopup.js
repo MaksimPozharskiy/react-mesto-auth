@@ -29,7 +29,8 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
         title="Редактировать профиль"
         isOpen={isOpen}
         onClose={onClose}
-        handleSubmit={handleSubmit}>
+        handleSubmit={handleSubmit}
+        buttonSubmitText={'Отправить'}>
           <input 
             minLength="2" 
             maxLength="40" 
@@ -60,11 +61,6 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
           <span 
             className='popup__input-error popup__input-error_active' 
             id='profession-input-error' />
-          <input 
-            type="submit" 
-            className="popup__button-save" 
-            defaultValue="Сохранить" 
-            name="submit" />
         </PopupWithForm>
   );
 }

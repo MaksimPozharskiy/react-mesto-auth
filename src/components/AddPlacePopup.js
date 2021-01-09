@@ -21,7 +21,8 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
       title="Новое место"
       isOpen={isOpen}
       onClose={onClose}
-      handleSubmit={handleSubmit}>
+      handleSubmit={handleSubmit}
+      buttonSubmitText={'Создать'}>
         <input 
           ref={nameInput}
           minLength="1" 
@@ -46,11 +47,6 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
         <span 
           className='popup__input-error' 
           id='link-input-error'>Вы пропустили это поле.</span>
-        <input 
-          type="submit" 
-          className="popup__button-save" 
-          value="Создать" 
-          name="submit" />
     </PopupWithForm>
   )
 }
