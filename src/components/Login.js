@@ -38,9 +38,10 @@ function Login({setEmail, openInfoTooltip, onClose, infoTooltipContent, setLogge
         // Перенаправляем на главную страницу спустя 3сек и закрываем попап
         setTimeout(history.push, 3000, "/");
         setTimeout(onClose, 2500);
-    }).catch(() => {
+    }).catch((err) => {
       infoTooltipContent({iconPath: registrationNoOK, text: 'Что то пошло не так!'})
       openInfoTooltip();
+      console.log(err)
     })
   }
 

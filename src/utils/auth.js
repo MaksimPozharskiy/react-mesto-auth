@@ -20,9 +20,6 @@ export const register = (email, password) => {
   .then((res) => {
     return res;
   })
-  .catch((err) => {
-    console.log(err)
-  });
 }; 
 
 export const authorize = (email, password) => {
@@ -46,9 +43,6 @@ export const authorize = (email, password) => {
       return data.token;
     }
   })
-  .catch((err) => {
-    console.log(err);
-  })
 }
 
 export const getContent = (token) => {return fetch(`${BASE_URL}/users/me`, {
@@ -62,7 +56,4 @@ export const getContent = (token) => {return fetch(`${BASE_URL}/users/me`, {
     return res.json()
   })
   .then((data) => data)
-  .catch((err) => {
-    console.log(err);
-  })
 }

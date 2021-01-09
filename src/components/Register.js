@@ -28,10 +28,11 @@ function Register({openInfoTooltip, onClose, infoTooltipContent}) {
         // Перенаправляем на страницу логина спустя 3сек и закрываем попап
         setTimeout(history.push, 3000, "/sign-in");
         setTimeout(onClose, 2500);
-    }).catch(()=> {
+    }).catch((err)=> {
       infoTooltipContent({iconPath: registrationNoOK, text: 'Что-то пошло не так! Попробуйте ещё раз.'})
       openInfoTooltip();
       setTimeout(onClose, 2500);
+      console.log(err)
     })
   } 
 
