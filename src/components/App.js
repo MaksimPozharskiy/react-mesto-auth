@@ -20,7 +20,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
-  const [currentUser, setCurrentUser] = React.useState();
+  const [currentUser, setCurrentUser] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [message, setMessage] = React.useState({ iconPath: '', text: '' });
   const [email, setEmail] = React.useState('');
@@ -61,7 +61,7 @@ function App() {
   function handleInfoTooltipPopupOpen() {
     setIsInfoTooltipPopupOpen(true);
   }
-  function hadleInfoTooltipContent({iconPath, text}) {
+  function handleInfoTooltipContent({iconPath, text}) {
     setMessage({ iconPath: iconPath, text: text })
   }
 
@@ -172,7 +172,7 @@ function App() {
             <Login 
               openInfoTooltip={handleInfoTooltipPopupOpen} 
               onClose={closeAllPopups}
-              infoTooltipContent={hadleInfoTooltipContent}
+              infoTooltipContent={handleInfoTooltipContent}
               setEmail={setEmail}
               setLoggedIn={setLoggedIn}
             />
@@ -181,7 +181,7 @@ function App() {
             <Register 
               openInfoTooltip={handleInfoTooltipPopupOpen} 
               onClose={closeAllPopups}
-              infoTooltipContent={hadleInfoTooltipContent}
+              infoTooltipContent={handleInfoTooltipContent}
             />
           </Route>
           <Route path="/">
