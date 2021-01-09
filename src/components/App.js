@@ -13,6 +13,9 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { Route, Redirect, Switch, useHistory } from 'react-router-dom';
 import InfoTooltip from './InfoTooltip';
 import * as Auth from '../utils/auth';
+import registrationOk from '../images/registration-ok.svg';
+import registrationNoOK from '../images/login-fail.svg';
+const escapeHtml = require('escape-html')
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -145,6 +148,49 @@ function App() {
       document.removeEventListener('keydown', hadleEscClose);
     }
   }, []);
+  // Регистрация
+  function registration(email, password) {
+    Auth.register(escapeHtml(email), password).then((res) => {
+      if(res.status === 201){
+        handleInfoTooltipContent({iconPath: registrationOk, text: 'Вы успешно зарегистрировались!'})
+        handleInfoTooltipPopupOpen();
+        // Перенаправляем на страницу логина спустя 3сек и закрываем попап
+        setTimeout(history.push, 3000, "/sign-in");
+        setTimeout(closeAllPopups, 2500);
+      }
+      if(res.status === 400) {
+        console.log('Введный емейл ужезарегестрирован')
+      }
+    }).catch((err)=> {
+      handleInfoTooltipContent({iconPath: registrationNoOK, text: 'Что-то пошло не так! Попробуйте ещё раз.'})
+      handleInfoTooltipPopupOpen();
+      setTimeout(closeAllPopups, 2500);
+      console.log(err)
+    })
+  }
+  // Авторизация 
+  function authorization(email, password) {
+    Auth.authorize(escapeHtml(email), password )
+    .then((data) => {
+      if (!data) {
+        throw new Error('Произошла ошибка');
+      }
+      Auth.getContent(data)
+        .then((res) => {
+          setEmail(res.data.email);
+        }).catch(err => console.log(err));
+        setLoggedIn(true);
+        handleInfoTooltipContent({iconPath: registrationOk, text: 'Вы успешно авторизовались!'})
+        handleInfoTooltipPopupOpen();
+        // Перенаправляем на главную страницу спустя 3сек и закрываем попап
+        setTimeout(history.push, 3000, "/");
+        setTimeout(closeAllPopups, 2500);
+    }).catch((err) => {
+      handleInfoTooltipContent({iconPath: registrationNoOK, text: 'Что то пошло не так!'})
+      handleInfoTooltipPopupOpen();
+      console.log(err)
+    })
+  }
 
   // Выход из учетки
   function handleSignOut() {
@@ -170,18 +216,12 @@ function App() {
           />}
           <Route path="/sign-in">
             <Login 
-              openInfoTooltip={handleInfoTooltipPopupOpen} 
-              onClose={closeAllPopups}
-              infoTooltipContent={handleInfoTooltipContent}
-              setEmail={setEmail}
-              setLoggedIn={setLoggedIn}
+              authorization={authorization}
             />
           </Route>
           <Route path="/sign-up">
             <Register 
-              openInfoTooltip={handleInfoTooltipPopupOpen} 
-              onClose={closeAllPopups}
-              infoTooltipContent={handleInfoTooltipContent}
+              registration={registration}
             />
           </Route>
           <Route path="/">
