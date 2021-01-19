@@ -4,7 +4,6 @@
   "private": true,
   "author": "Maksim Pozharskiy",
   "description": "Данный проект является реализацией проекта Mesto на основе React",
-  "homepage": "https://maksimpozharskiy.github.io/mesto-react/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
@@ -22,7 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "npm run build && scp -r ./build/* m_pozharskiy@84.201.131.119:/home/m_pozharskiy/frontend" 
   },
   "eslintConfig": {
     "extends": [
